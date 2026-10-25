@@ -1,6 +1,6 @@
-# Creator developer experience — Vite scaffold, React SDK and theme CLI
+# Creator developer experience — SDK/CLI cross-repo contract
 
-**State:** Specification; the following commands are examples, not published npm packages yet.
+**State:** Specification for a **separate planned** `atlashub_theme_sdk` repository; that repository was not found in connected GitHub installations. CLI and SDK are not published npm packages yet. This backend keeps compatibility/API contracts only; no monorepo or Turborepo/Nx.
 
 ## Design intention
 
