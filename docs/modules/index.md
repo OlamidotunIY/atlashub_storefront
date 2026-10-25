@@ -2,21 +2,22 @@
 
 **State:** Architecture/specification only, no module is built. This backlog supersedes the earlier declarative-only editor plan. DDD+Clean Architecture/Ports & Adapters with pragmatic CQRS; no additional backend GitHub repository.
 
-## Repo applications / packages
+## Independently deployed repositories and backend modules (no Turborepo/Nx)
 
 | Location (proposed) | Responsibility | Key acceptance criteria |
 |---|---|---|
-| `apps/portal` | Dedicated merchant and creator workspace, auth redirects, route guards, listings/settings/sales/domain UI | Merchants never need a second business operations dashboard; role-based workspaces; SSO without URL tokens |
+| `atlashub_storefront_portal` (separate repo) | Dedicated merchant and creator frontend, theme marketplace/settings/domain UI | Independent deployment; no duplicated Atlas Web business operations |
+| `atlashub_auth_web` (separate repo) | Shared registration/login/recovery frontend for all Atlas products | Individual registration independent of organization, central SSO with Java/IdP authority |
 | `apps/management-api` | Independent TypeScript/Node DDD backend and PostgreSQL state for themes, installations, config, domains, creators, releases, assets, work items | Tenant/creator authorization on every action, mutation idempotency, contract tests with Java |
 | `apps/build-worker` | Disposable/quarantined source intake, dependency validation, Vite/SSR compilation, audits, reproducible artifacts | No secrets/privileged network, per-build CPU/storage/time limits, only approved release promoted |
 | `apps/publishing-worker` | Review release, install tenant Worker, sync domain routes/TLS, invalidate caches, report status, rollback | Durable workflows with retries/compensation/idempotency |
 | `apps/storefront-runtime` | Cloudflare dispatch and per-installation untrusted user Worker execution, cache, SSR, quotas and egress restrictions | Unknown hostname fail closed, independent tenant Worker and public catalog context, checkout isolated |
-| `packages/create-theme` | Official Vite/React/React Router scaffold, required routes, defaults, dev mocks, sample settings | New developer starts template in one command, no secret API keys required |
-| `packages/storefront-sdk` | Typed Java public storefront data client, hooks, safe cart/checkout launch, asset/settings access | No arbitrary admin APIs, org context server-attested, backend recalculates all prices |
-| `packages/theme-cli` | login/logout/whoami, dev/validate/build/preview/publish, list/releases/unlist | Scope-limited CLI token, version conflict detection, detailed diagnostics |
-| `packages/theme-contracts` | Theme manifest, settings schemas, route contracts, version compat and approved capabilities | Defaults validate; reject unsafe assets/capabilities and mismatched page support |
-| `packages/theme-runtime` | Theme SSR bundle entry and per-tenant configuration adapter | SSR/prerender indexable pages + hydration + compatible Worker env |
-| `packages/shared-ui` | Portal design system and shared widgets | Does not become global auth/security gateway or contain secrets |
+| `atlashub_theme_sdk` (proposed separate repo) | Official Vite/React/React Router scaffold, required routes, defaults, dev mocks, sample settings | Repository not verified created; versions published separately, no secret API keys |
+| `atlashub_theme_sdk` (planned SDK package) | Typed public storefront data client, hooks, safe cart/checkout launch, asset/settings access | No arbitrary admin APIs, org context server-attested, Java backend recalculates prices |
+| `atlashub_theme_sdk` (planned CLI package) | login/logout/whoami, dev/validate/build/preview/publish, list/releases/unlist | Scope-limited CLI token, version conflict detection and detailed diagnostics |
+| `contracts/` (in this backend) + published theme contracts (planned SDK repo) | Versioned theme manifest, API/schema/route compatibility | Defaults validate and published cross-repo contracts tested |
+| `workers/template-runtime` (backend hosting) | Deployment/dispatch/Worker SSR adapter; runtime contract with SDK repo | SSR/prerender indexable pages plus compatible isolated Worker environment |
+| `atlashub_storefront_portal` (separate repo) | Portal design system and merchant/creator widgets | No portal UI in hosting/backend repository |
 
 ## Bounded contexts and design documents
 
