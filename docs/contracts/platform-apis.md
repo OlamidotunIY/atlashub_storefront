@@ -7,13 +7,21 @@
 - `atlashub_backend` Java identity, member/organization roles, products/variants, published prices, tax/availability, catalog media IDs, orders/cart, payments/providers, billing/entitlements, inventory, fulfillment.
 - `atlashub_storefront` TypeScript management: independent creator identity **extension** (profile linked to Java User), theme releases, portal session, storefront installation/configuration, domain and storage/deploy lifecycle. Calls Java-authorized APIs; own PostgreSQL metadata.
 - `atlashub_web` business operations and theme recommendations/deep links; no second implementation of theme management.
-- **Storefront Portal**: dedicated UI in storefront monorepo consuming management APIs via BFF/session layer.
+- `atlashub_auth_web` (separate React/Vite frontend) global identity/login/registration UX; Java/IdP is the **only authentication authority**.
+- `atlashub_storefront_portal` (separate React/Vite frontend) merchant+creator theme management; owns no authoritative financial data.
+- `atlashub_theme_sdk` planned independently versioned Vite React theme scaffold/SDK/CLI repository (**not yet verified created**); receives published public API/manifest contracts.
+- **Storefront Portal**: dedicated standalone React frontend repository `atlashub_storefront_portal` consuming management APIs through BFF/session layer; not built into the Storefront management backend.
+
+## Registration/organization/provider independence
+
+`RegisterUser` from shared `atlashub_auth_web` creates a global verified account with **zero organization permitted**; `CreateOrganization` is a separate Java command with OWNER membership. A user may become an independent theme creator without registering a merchant. No mandatory Anchor KYB or bank account is created on either registration flow. Payment/logistics onboarding is provider-connection-specific and gates only selected capabilities. Existing Java `RegisterOrganization` atomic flow and blanket compliance status are legacy migration concerns. New SDK must never expose a bypass around provider verification or Java IAM.
 
 ## Contract groups (illustrative paths; finalize during implementation)
 
 ### Java identity and entitlements for portal
-- OIDC Discovery/authorize/token/userinfo/end-session or equivalent conformant identity service: centralized AtlasHub user identity, code/PKCE and session.
-- `GET /api/v1/me` resolves current user/allowed organizations; only backend, not URL, asserts membership.
+- OIDC Discovery/authorize/token/userinfo/end-session or equivalent conformant identity service: centralized AtlasHub user identity, code/PKCE and session. **Shared Auth Web** renders identity UI; it does not issue tokens or act as its own IdP. Register person independently of business.
+- `GET /api/v1/me` resolves current user/allowed organizations (may be empty); only backend, not URL, asserts membership.
+- `POST /api/v1/users/register` / `POST /api/v1/organizations` are **illustrative distinct operations**; finalize actual paths in Java OpenAPI. User signup does not require banking/KYB/provider.
 - `GET /api/v1/organizations/{id}/permissions` resolves user-scoped merchant abilities.
 - `GET /api/v1/organizations/{id}/entitlements` verifies theme purchase/plan and license usage; the Java billing service remains purchase source of truth.
 - `POST /api/v1/platform/theme-purchases` initiates trusted theme purchase; confirms entitlements via verified payment, server event, refund lifecycle. Names provisional.
