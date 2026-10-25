@@ -35,8 +35,8 @@ Untrusted developer source archives/NPM dependencies, malicious review updates, 
 
 ## Identity and authorization
 
-- Atlas identity central for creator and merchant; OIDC Authorization Code + PKCE or BFF; never share/localStorage-copy JS bearer token between portals, no tokens in redirect URL, rotate session and CSRF protect mutations.
-- Creator can publish versions for owned themes, not change merchant configurations. Merchant may only install and publish for authorized org/storefront, not alter developer release.
+- Atlas **Java identity/IdP** central for creator and merchant; shared login UI in separate `atlashub_auth_web`, merchant/creator frontend in separate `atlashub_storefront_portal`. OIDC Authorization Code + PKCE or BFF; never share/localStorage-copy JS bearer token between portals, no tokens in redirect URL, rotate session and CSRF protect mutations. Independent user signup creates no organization or bank/KYB record.
+- Creator can publish versions for owned themes, not change merchant configurations. Organization can exist without a connected payment provider; missing provider disables provider-dependent checkout, not login, theme preview or legitimate catalog configuration. Merchant may only install and publish for authorized org/storefront, not alter developer release.
 - Independent creator registration requires no business entity; creator earnings/payments require separate legal and KYC/contract policy as applicable.
 - Signed upload/CLI tokens least privilege/expiry/revoke, no long-lived master API key in theme scaffold or committed files.
 
