@@ -1,6 +1,6 @@
 # Portal UX, shared Atlas Hub identity, multi-role workspaces
 
-**State:** Architecture contract; implementation pending. The portal is a **separate web application** in `atlashub_storefront/apps/portal`, not a duplicated business dashboard.
+**State:** Architecture contract; implementation pending. The portal is a **separate web application and separate GitHub repository** at [atlashub_storefront_portal](https://github.com/OlamidotunIY/atlashub_storefront_portal), not located under this backend's source tree. Shared login/register/recovery frontend is [atlashub_auth_web](https://github.com/OlamidotunIY/atlashub_auth_web); Java/IdP owns credentials and OAuth/OIDC.
 
 ## User and business experiences
 
@@ -48,7 +48,7 @@ Example addresses are **not** registered assets, confirmed brands or live servic
 
 ## Single sign-on (SSO): desired security behavior
 
-1. The browser has an authenticated **Atlas Hub identity-provider session**.
+1. The browser has an authenticated **Atlas Hub identity-provider session** established through the central `atlashub_auth_web` login UI and Java/IdP identity backend; independent user registration requires no organization or Anchor KYB.
 2. Clicking an Atlas Web theme recommendation navigates to the portal via URL containing **only a public theme ID and optional safe return context**, never a token or private org authority.
 3. Portal initiates OpenID Connect Authorization Code + PKCE flow against central identity service (preferred) or a secure BFF equivalent.
 4. IdP recognizes the existing session and returns one-time code to portal callback. The portal establishes its **own** secured session (HTTP-only, Secure, SameSite policy chosen per flow). This *may* appear automatic to user, but SSO cannot be assumed until Java auth supports it.
@@ -85,4 +85,4 @@ Atlas Web currently has `src/app/router/routes/merchant.routes.tsx` merchant aut
 Java IAM/auth is authoritative; extend to central SSO and creator role/profiles through API contracts. Do not add a standalone identity database to the storefront backend.
 
 ## Decisions
-Separate portal **yes**. Separate backend repository **no**. Shared identity with app-specific session **yes**. Independent creator onboarding **yes**. Drag-and-drop editor **not in initial release**.
+Separate portal **yes, separate frontend repository**. Separate Auth Web frontend **yes**. Additional new backend repo **no**. Independent SDK/CLI repo **planned, not yet created**. Shared identity with app-specific session **yes**. Independent creator onboarding **yes**. Drag-and-drop editor **not in initial release**.
