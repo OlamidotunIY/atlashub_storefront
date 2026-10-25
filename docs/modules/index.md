@@ -6,17 +6,17 @@
 
 | Location (proposed) | Responsibility | Key acceptance criteria |
 |---|---|---|
-| \`apps/portal\` | Dedicated merchant and creator workspace, auth redirects, route guards, listings/settings/sales/domain UI | Merchants never need a second business operations dashboard; role-based workspaces; SSO without URL tokens |
-| \`apps/management-api\` | Independent TypeScript/Node DDD backend and PostgreSQL state for themes, installations, config, domains, creators, releases, assets, work items | Tenant/creator authorization on every action, mutation idempotency, contract tests with Java |
-| \`apps/build-worker\` | Disposable/quarantined source intake, dependency validation, Vite/SSR compilation, audits, reproducible artifacts | No secrets/privileged network, per-build CPU/storage/time limits, only approved release promoted |
-| \`apps/publishing-worker\` | Review release, install tenant Worker, sync domain routes/TLS, invalidate caches, report status, rollback | Durable workflows with retries/compensation/idempotency |
-| \`apps/storefront-runtime\` | Cloudflare dispatch and per-installation untrusted user Worker execution, cache, SSR, quotas and egress restrictions | Unknown hostname fail closed, independent tenant Worker and public catalog context, checkout isolated |
-| \`packages/create-theme\` | Official Vite/React/React Router scaffold, required routes, defaults, dev mocks, sample settings | New developer starts template in one command, no secret API keys required |
-| \`packages/storefront-sdk\` | Typed Java public storefront data client, hooks, safe cart/checkout launch, asset/settings access | No arbitrary admin APIs, org context server-attested, backend recalculates all prices |
-| \`packages/theme-cli\` | login/logout/whoami, dev/validate/build/preview/publish, list/releases/unlist | Scope-limited CLI token, version conflict detection, detailed diagnostics |
-| \`packages/theme-contracts\` | Theme manifest, settings schemas, route contracts, version compat and approved capabilities | Defaults validate; reject unsafe assets/capabilities and mismatched page support |
-| \`packages/theme-runtime\` | Theme SSR bundle entry and per-tenant configuration adapter | SSR/prerender indexable pages + hydration + compatible Worker env |
-| \`packages/shared-ui\` | Portal design system and shared widgets | Does not become global auth/security gateway or contain secrets |
+| `apps/portal` | Dedicated merchant and creator workspace, auth redirects, route guards, listings/settings/sales/domain UI | Merchants never need a second business operations dashboard; role-based workspaces; SSO without URL tokens |
+| `apps/management-api` | Independent TypeScript/Node DDD backend and PostgreSQL state for themes, installations, config, domains, creators, releases, assets, work items | Tenant/creator authorization on every action, mutation idempotency, contract tests with Java |
+| `apps/build-worker` | Disposable/quarantined source intake, dependency validation, Vite/SSR compilation, audits, reproducible artifacts | No secrets/privileged network, per-build CPU/storage/time limits, only approved release promoted |
+| `apps/publishing-worker` | Review release, install tenant Worker, sync domain routes/TLS, invalidate caches, report status, rollback | Durable workflows with retries/compensation/idempotency |
+| `apps/storefront-runtime` | Cloudflare dispatch and per-installation untrusted user Worker execution, cache, SSR, quotas and egress restrictions | Unknown hostname fail closed, independent tenant Worker and public catalog context, checkout isolated |
+| `packages/create-theme` | Official Vite/React/React Router scaffold, required routes, defaults, dev mocks, sample settings | New developer starts template in one command, no secret API keys required |
+| `packages/storefront-sdk` | Typed Java public storefront data client, hooks, safe cart/checkout launch, asset/settings access | No arbitrary admin APIs, org context server-attested, backend recalculates all prices |
+| `packages/theme-cli` | login/logout/whoami, dev/validate/build/preview/publish, list/releases/unlist | Scope-limited CLI token, version conflict detection, detailed diagnostics |
+| `packages/theme-contracts` | Theme manifest, settings schemas, route contracts, version compat and approved capabilities | Defaults validate; reject unsafe assets/capabilities and mismatched page support |
+| `packages/theme-runtime` | Theme SSR bundle entry and per-tenant configuration adapter | SSR/prerender indexable pages + hydration + compatible Worker env |
+| `packages/shared-ui` | Portal design system and shared widgets | Does not become global auth/security gateway or contain secrets |
 
 ## Bounded contexts and design documents
 
@@ -55,7 +55,7 @@
 
 ## Phase 2 — creator tooling and marketplace
 
-- Authenticated CLI flows: \`login\`, \`logout\`, \`whoami\`, \`theme init\`, \`dev\`, \`validate\`, \`build\`, \`preview\`, \`publish\`, \`versions\`, \`unlist\`; one authoritative server-side validation pipeline.
+- Authenticated CLI flows: `login`, `logout`, `whoami`, `theme init`, `dev`, `validate`, `build`, `preview`, `publish`, `versions`, `unlist`; one authoritative server-side validation pipeline.
 - Private source intake, isolated ephemeral builds with network/secret restrictions, dependency lockfile, signed immutable release assets, staged approval.
 - Creator portal: profile, themes, drafts, release diagnostics, review cases, listing, unlisting, sales/earnings.
 - Publishing state machine: LOCAL -> UPLOADED -> VALIDATING -> BUILD_FAILED/NEEDS_CHANGES -> IN_REVIEW -> APPROVED -> LISTED; version immutable. Unlisting does not automatically break installations.
