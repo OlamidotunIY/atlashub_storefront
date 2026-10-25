@@ -1,6 +1,6 @@
 # Portal UX, shared Atlas Hub identity, multi-role workspaces
 
-**State:** Architecture contract; implementation pending. The portal is a **separate web application** in \`atlashub_storefront/apps/portal\`, not a duplicated business dashboard.
+**State:** Architecture contract; implementation pending. The portal is a **separate web application** in `atlashub_storefront/apps/portal`, not a duplicated business dashboard.
 
 ## User and business experiences
 
@@ -28,7 +28,7 @@ Owns merchant business administration, POS, products, inventory, payroll, paymen
 One central AtlasHub User may have CreatorProfile and memberships in multiple Organizations, each with independent permission. Switch roles/workspaces without changing identity; organization must be selected for merchant context. A creator cannot access a store's merchant configuration just because they wrote its theme. A merchant cannot modify a creator's immutable uploaded source.
 
 ## Proposed routes (examples, not implemented)
-\`\`\`
+```
 https://app.<brand>/dashboard
 https://app.<brand>/commerce/...          # Atlas Web
 
@@ -43,7 +43,7 @@ https://storefront.<brand>/creator/templates
 https://storefront.<brand>/creator/templates/:themeId/versions
 https://storefront.<brand>/creator/reviews
 https://storefront.<brand>/creator/earnings
-\`\`\`
+```
 Example addresses are **not** registered assets, confirmed brands or live services.
 
 ## Single sign-on (SSO): desired security behavior
@@ -81,7 +81,7 @@ Separate entitlement/capability checks for subscriptions and available countries
 All cross-app return/deep links must use an allowlisted origin and internal route; reject open redirects. Portal preview should use separate, unprivileged origins and block framing/messaging from untrusted origins unless purpose-built contract is used. CSRF protection for authenticated portal mutations and CLI OAuth device flows.
 
 ## Existing source touchpoints (implementation later)
-Atlas Web currently has \`src/app/router/routes/merchant.routes.tsx\` merchant auth/layout and \`src/app/shell/main/sidebar/SidebarNavigation.tsx\`; use them to add recommendation navigation only.
+Atlas Web currently has `src/app/router/routes/merchant.routes.tsx` merchant auth/layout and `src/app/shell/main/sidebar/SidebarNavigation.tsx`; use them to add recommendation navigation only.
 Java IAM/auth is authoritative; extend to central SSO and creator role/profiles through API contracts. Do not add a standalone identity database to the storefront backend.
 
 ## Decisions
