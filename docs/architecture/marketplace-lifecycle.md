@@ -22,7 +22,7 @@ Creator owns source/version/listing rights for their theme; Atlas reviewer appro
 
 ## Creator flow
 
-1. Sign in/SSO and create independent creator profile.
+1. Register or sign in as individual via **separate Auth Web** and Java identity, optionally with **no organization**. Create creator profile in **independent Storefront Portal frontend**, using backend creator API. Do not require bank/KYB simply to author a template.
 2. Scaffold React theme via CLI, implement route contract/SDK, supply valid default settings and preview media.
 3. CLI authenticated submit with unique version/idempotency key; server issues scoped short-lived upload instructions; archive arrives **private**.
 4. System quarantines source, validates manifest and dependencies, isolated builds SSR/client assets, malware/supply-chain checks, computes immutable release digest, stores build diagnostics.
@@ -33,7 +33,7 @@ Creator owns source/version/listing rights for their theme; Atlas reviewer appro
 
 ## Merchant purchase/install/publish
 
-1. Atlas Web recommendation opens portal listing using safe deep link, completing SSO.
+1. Atlas Web recommendation opens **separate** [Storefront Portal frontend](https://github.com/OlamidotunIY/atlashub_storefront_portal) listing using safe deep link, completing central SSO via [Auth Web](https://github.com/OlamidotunIY/atlashub_auth_web) + Java/IdP, not duplicated login UI.
 2. Marketplace displays genuine preview/demo, features, region/SDK compatibility, version, price, creator, update policy.
 3. Buy via **trusted Atlas Hub billing** or claim free theme; after server-confirmed entitlement, install approved release.
 4. Create configuration revision using developer defaults + validated merchant overrides; upload/choose tenant-owned logo/favicon/banners/fonts etc. Theme creator cannot edit installed merchant settings.
@@ -45,7 +45,7 @@ Creator owns source/version/listing rights for their theme; Atlas reviewer appro
 
 ## Billing and creator revenue
 
-Use AtlasHub Java platform billing service for payment collection, subscription entitlements and accounting. Merchant external Paystack/Stripe connections for **their storefront customer checkouts** are different from payment of themes to AtlasHub. Creator revenue share and payout require a contractual payout policy and provider integration, refunds/chargebacks, tax/KYC rules by country; do not assume automatic self-service creator payouts are legal/implemented. Avoid two sources of truth for revenue.
+Use AtlasHub Java platform billing service for the **AtlasHub theme marketplace's own purchases**, subscriptions, entitlements and accounting. Merchant business creation is independent of payment-provider setup; provider onboarding/KYC only gates provider-dependent customer checkout. Merchant external Paystack/Stripe connections for **their storefront customer checkouts** are different from payment of themes to AtlasHub. Creator revenue share and payout require a contractual payout policy and provider integration, refunds/chargebacks, tax/KYC rules by country; do not assume automatic self-service creator payouts are legal/implemented. Avoid two sources of truth for revenue.
 
 ## Rollbacks and deprecation
 
