@@ -6,15 +6,15 @@
 
 Every storefront may initially have a platform-hosted subdomain. Merchant may connect a custom domain from existing registrar using DNS record instructions in **Storefront Portal**. Cloudflare for SaaS is selected for custom hostname management and certificate issuance/renewal subject to deployment account availability.
 
-State machine candidate: \`REQUESTED -> CHALLENGE_ISSUED -> OWNERSHIP_VERIFIED -> CERTIFICATE_PENDING -> READY -> ACTIVE\`; alternate paths \`FAILED\`, \`SUSPENDED\`, \`REVOKED\`, \`REMOVING\`.
+State machine candidate: `REQUESTED -> CHALLENGE_ISSUED -> OWNERSHIP_VERIFIED -> CERTIFICATE_PENDING -> READY -> ACTIVE`; alternate paths `FAILED`, `SUSPENDED`, `REVOKED`, `REMOVING`.
 
-1. Merchant authorized for storefront requests \`shop.example.com\`; backend canonicalizes hostname and checks global uniqueness/ownership.
+1. Merchant authorized for storefront requests `shop.example.com`; backend canonicalizes hostname and checks global uniqueness/ownership.
 2. Backend generates DNS TXT/HTTP proof as applicable; registers Cloudflare custom hostname/SSL validation record. Provide merchant explicit CNAME target and status UI.
 3. Validate **hostname control** and **certificate** independently; do not go live before both ready. Track renewal, DNS changes, decommission.
 4. Bind verified hostname to Storefront publication and active Worker deployment in trusted dispatch mapping. The merchant can choose canonical host, redirects and safe aliases.
 5. Resolve unknown/unverified/stale hosts to a generic non-sensitive failure. Never infer tenant from arbitrary Host header, URL path, query org parameter or client-supplied store ID.
 6. Ownership recheck and deletion must address domain reclaims, expired registrations, DNS move and customers moving between merchants.
-7. Consider apex/root domain behavior, redirects, \`www\` alias, ACME/Caa and provider plan limits. Configure HSTS/TLS, observability and expiry alerts with runbooks.
+7. Consider apex/root domain behavior, redirects, `www` alias, ACME/Caa and provider plan limits. Configure HSTS/TLS, observability and expiry alerts with runbooks.
 
 Reference: https://developers.cloudflare.com/cloudflare-for-platforms/cloudflare-for-saas/start/getting-started/ and https://developers.cloudflare.com/cloudflare-for-platforms/workers-for-platforms/configuration/hostname-routing/
 
@@ -28,7 +28,7 @@ A theme supports canonical routes, SEO metadata and open graph, product JSON-LD,
 
 - Browser/cart SDK talks to Java-scoped public Storefront API, using a cart/session token securely bound to verified public storefront context and proper CSRF/abuse controls.
 - Product/variant/quantity updates create server-evaluated cart; Java alone calculates price, tax, stock/reservations, shipping routes and eligible merchant-connected provider methods for merchant country/currency.
-- \`checkout.start\` creates a trusted, short-lived checkout session/redirect. Theme may customize a safe button and landing experience; it may not inject bank/card collection logic or provider secrets.
+- `checkout.start` creates a trusted, short-lived checkout session/redirect. Theme may customize a safe button and landing experience; it may not inject bank/card collection logic or provider secrets.
 - Payment collection uses a trusted Atlas-controlled checkout origin/widget with strict separation from untrusted theme JavaScript. Payment callbacks/redirects are not proof of payment. Java verifies signed provider webhook/server status, idempotency and reconciliation before marking order paid.
 - Refunds, chargebacks, fulfillment, accounting and payout states stay Java-owned and originate through server-verified domain events.
 
