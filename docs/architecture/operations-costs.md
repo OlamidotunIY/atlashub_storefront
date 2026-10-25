@@ -4,7 +4,7 @@
 
 ## Production environments
 
-- Independent `dev`, `staging` and `production` storage, database, Worker namespaces, secret stores and IdP client IDs.
+- Independently deployed projects: `atlashub_auth_web` central identity UI, `atlashub_web` operations, `atlashub_storefront_portal` merchant/creator frontend, `atlashub_storefront` API/build/Workers backend, Java identity/commerce and a separately planned `atlashub_theme_sdk`. No Turborepo/Nx. Independent `dev`, `staging` and `production` storage, database, Worker namespaces, secret stores and IdP client IDs.
 - CI builds portal and management services from reviewed code; creator uploads build **only** in quarantined ephemeral workers.
 - Promotion requires immutable source/build hash and signed release; production worker scripts deployed from approved artifacts, not raw user upload.
 - Feature flags for region, merchant plan and rollout; staging custom domains and previews must not index or leak production customer data.
@@ -13,7 +13,7 @@
 
 ## Failure domains and expectations
 
-- **Java unavailable:** public cached catalog may remain within bounded TTL, but do not accept final checkout/order/payment claim without Java confirmation.
+- **Java unavailable:** public cached catalog may remain within bounded TTL, but do not accept final checkout/order/payment claim without Java confirmation. Central identity and IAM availability also affects new Portal sign-ins/permissions; existing verified sessions must follow defined expiry/revocation policy.
 - **Storefront management API unavailable:** active published stores may continue via existing mappings/CDN; prevent new installs/config publishes.
 - **Cloudflare dispatch unavailable:** serve controlled 5xx, observe all stores; do not silently route to wrong merchant.
 - **Tenant Worker faulty:** isolate store, alert, roll back previous release, avoid cross-tenant blast radius.
