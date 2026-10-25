@@ -8,17 +8,17 @@ Creator owns source/version/listing rights for their theme; Atlas reviewer appro
 
 ## Canonical data and states
 
-- \`CreatorProfile\`: AtlasHub user ID, bio, status, available payouts/terms (financial qualification separately).
-- \`Theme\`: canonical identity/slug, author, ownership and general categories.
-- \`ThemeVersion\`: semantic version, immutable source archive reference, lockfile/manifest digest, build ID, compatible SDK/runtime.
-- \`BuildJob\`: QUEUED/RUNNING/FAILED/PASSED, isolated worker logs redacted, outputs and provenance.
-- \`ReviewCase\`: NOT_SUBMITTED/IN_REVIEW/CHANGES_REQUESTED/APPROVED/REJECTED with review evidence.
-- \`ThemeRelease\`: immutable artifact references, signature/hash, capabilities/CSP policy; APPROVED/DEPRECATED/REVOKED.
-- \`ThemeListing\`: DRAFT/LISTED/UNLISTED/REMOVED with price, supported markets/categories and approval link.
-- \`ThemeLicense\`: merchant organization, license/receipt/entitlement, source billing transaction ID, permitted installs, refunds/expiry policy.
-- \`ThemeInstallation\`: merchant storefront, pinned release, installation and target environment.
-- \`StorefrontPublication\`: active release, config revision, deployment ID, verified domain(s), publishedAt, rollback parent.
-- \`CreatorEarning\`: event-based projection from platform-authoritative sales/refunds/fees, not a second independent financial ledger.
+- `CreatorProfile`: AtlasHub user ID, bio, status, available payouts/terms (financial qualification separately).
+- `Theme`: canonical identity/slug, author, ownership and general categories.
+- `ThemeVersion`: semantic version, immutable source archive reference, lockfile/manifest digest, build ID, compatible SDK/runtime.
+- `BuildJob`: QUEUED/RUNNING/FAILED/PASSED, isolated worker logs redacted, outputs and provenance.
+- `ReviewCase`: NOT_SUBMITTED/IN_REVIEW/CHANGES_REQUESTED/APPROVED/REJECTED with review evidence.
+- `ThemeRelease`: immutable artifact references, signature/hash, capabilities/CSP policy; APPROVED/DEPRECATED/REVOKED.
+- `ThemeListing`: DRAFT/LISTED/UNLISTED/REMOVED with price, supported markets/categories and approval link.
+- `ThemeLicense`: merchant organization, license/receipt/entitlement, source billing transaction ID, permitted installs, refunds/expiry policy.
+- `ThemeInstallation`: merchant storefront, pinned release, installation and target environment.
+- `StorefrontPublication`: active release, config revision, deployment ID, verified domain(s), publishedAt, rollback parent.
+- `CreatorEarning`: event-based projection from platform-authoritative sales/refunds/fees, not a second independent financial ledger.
 
 ## Creator flow
 
@@ -29,7 +29,7 @@ Creator owns source/version/listing rights for their theme; Atlas reviewer appro
 5. Creator previews non-indexable candidate and submits for review; reviewer or automated controls approve, request changes or reject.
 6. Only approved release/listing becomes visible to marketplace. Sale price, payouts, category taxonomy and account state are platform-enforced.
 7. Creator new version creates another immutable review/release. No replacement of bytes already installed on merchants.
-8. \`unlist\` hides theme from new purchases; existing licensed installs generally continue. Security/legal revocation uses explicit incident policy and merchant migration/notification.
+8. `unlist` hides theme from new purchases; existing licensed installs generally continue. Security/legal revocation uses explicit incident policy and merchant migration/notification.
 
 ## Merchant purchase/install/publish
 
@@ -52,7 +52,7 @@ Use AtlasHub Java platform billing service for payment collection, subscription 
 - A merchant release/version is pinned until approved update (unless explicit separately consented automatic patch policy).
 - Theme version cannot be mutated, only superseded/revoked.
 - Storefront config revision is separate and backed up.
-- \`unlist\` is not \`delete\`; existing installs remain unless abusive/copyright/security takedown.
+- `unlist` is not `delete`; existing installs remain unless abusive/copyright/security takedown.
 - Deleting a creator profile does not immediately delete purchased binaries/data or other merchants' legally licensed storefronts; retention/legal/takedown rules documented.
 - Merchants may export their own assets/config data according to terms and data protection policy; cannot automatically obtain licensed creator source code.
 
