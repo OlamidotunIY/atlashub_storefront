@@ -48,7 +48,7 @@ This is a **TypeScript monorepo**, not a single Next.js app and not a server per
 
 ## Proposed future monorepo layout (not implemented yet)
 
-\`\`\`text
+```text
 apps/
   portal/                 # Shared merchant + creator UI
   management-api/         # Independent Node/TypeScript DDD backend
@@ -65,7 +65,7 @@ packages/
 examples/
   starter-theme/
 docs/
-\`\`\`
+```
 
 No repository folder above implies the application has already been built. We first implement and evaluate an end-to-end proof of concept with two independently authored themes and two unrelated merchants.
 
