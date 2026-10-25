@@ -10,7 +10,7 @@ A creator should have roughly the same experience as creating a Vite/React appli
 
 ## Developer flow
 
-\`\`\`bash
+```bash
 # Proposed future commands — not installed yet
 npx create-atlashub-theme fashion-studio
 cd fashion-studio
@@ -25,13 +25,13 @@ npx atlashub theme preview
 npx atlashub theme publish --version 1.0.0
 npx atlashub theme versions
 npx atlashub theme unlist
-\`\`\`
+```
 
-\`create-atlashub-theme\` is distributed as a CLI scaffolder. \`@atlashub/storefront-sdk\` is the versioned library built on **safe public commerce APIs**. \`@atlashub/theme-contracts\` holds manifest and page/settings schemas. Choose stable final package names/ownership after npm namespace availability check. Never ask developers for merchant API secrets.
+`create-atlashub-theme` is distributed as a CLI scaffolder. `@atlashub/storefront-sdk` is the versioned library built on **safe public commerce APIs**. `@atlashub/theme-contracts` holds manifest and page/settings schemas. Choose stable final package names/ownership after npm namespace availability check. Never ask developers for merchant API secrets.
 
 ### Scaffold anatomy
 
-\`\`\`text
+```text
 fashion-studio/
   app/
     routes/
@@ -54,21 +54,21 @@ fashion-studio/
   package.json
   package-lock.json
   tsconfig.json
-\`\`\`
+```
 
 Illustrative file names; final React Router route convention chosen in actual scaffold. Include test/lint/format and documentation.
 
 ## SDK public capabilities
 
-Read-only: \`products.list/get\`, \`collections.list/get\`, \`storefront.getPublicDetails\`, media URL resolution, published prices and availability; client React hooks for loading/cache/error.
+Read-only: `products.list/get`, `collections.list/get`, `storefront.getPublicDetails`, media URL resolution, published prices and availability; client React hooks for loading/cache/error.
 
-Customer cart: \`cart.create/get/add/update/remove\` with untrusted session handling and Java recalculation. Checkout: \`checkout.start\` returns trusted checkout URL/session, **not** a way to capture card/bank details inside arbitrary theme code. Customer auth, order history and PII require a separate designed, restricted customer flow.
+Customer cart: `cart.create/get/add/update/remove` with untrusted session handling and Java recalculation. Checkout: `checkout.start` returns trusted checkout URL/session, **not** a way to capture card/bank details inside arbitrary theme code. Customer auth, order history and PII require a separate designed, restricted customer flow.
 
-Theme: \`useThemeSettings()\` and \`useStorefrontContext()\` return public, validated active theme config and locale/market; developer need not manually pass org ID. SDK should not expose internal billing/merchant settlement, pay:controls, ledger, HR, staff, inventory stock-edit, customer private records, or admin mutation APIs.
+Theme: `useThemeSettings()` and `useStorefrontContext()` return public, validated active theme config and locale/market; developer need not manually pass org ID. SDK should not expose internal billing/merchant settlement, pay:controls, ledger, HR, staff, inventory stock-edit, customer private records, or admin mutation APIs.
 
 Example only:
 
-\`\`\`tsx
+```tsx
 import { atlashub, useThemeSettings } from "@atlashub/storefront-sdk";
 
 export function HomeHero() {
@@ -82,21 +82,21 @@ export function HomeHero() {
     </main>
   );
 }
-\`\`\`
+```
 
 Do not confuse API client typing with security: the server always limits data by verified store identity and authoritative Java policies.
 
 ## CLI behavior and security
 
 - Login through browser authorization/device flow against Atlas Hub central identity; token short-lived/scope-limited and revocable. Local storage in OS credential vault when available, not committed to repo.
-- \`init\`: create scaffold, provide JSON schema/SDK version, fixture data and basic default media.
-- \`dev\`: local mock data or sandbox store with strictly limited data, no privileged tokens; server/browser preview shows default/merchant-overridden settings safely.
-- \`validate\`: verify pages, manifest, settings defaults, capabilities, assets, dependencies and SSR compatibility; report precise diagnostics.
-- \`build\`: reproducible Vite + React Router SSR/client bundles; source maps kept private when necessary; generated digest/size reports.
-- \`preview\`: local or remote expiring isolated preview, no-index, sample/authorized merchant data only.
-- \`publish\`: never accept a local build as pre-approved. Request signed source-upload target, send archive and version metadata, trigger **server-side** independent validation/build/review. Response provides upload/build/review ID, **not** immediate public listing.
-- \`versions\` / \`unlist\`: show releases, metadata and review statuses; unlist prevents new sales, not breaking every installed store.
-- \`delete\`: distinguish draft deletion, unlisted theme and hard legal/safety removal; fail safely if active installations/licenses depend on a release.
+- `init`: create scaffold, provide JSON schema/SDK version, fixture data and basic default media.
+- `dev`: local mock data or sandbox store with strictly limited data, no privileged tokens; server/browser preview shows default/merchant-overridden settings safely.
+- `validate`: verify pages, manifest, settings defaults, capabilities, assets, dependencies and SSR compatibility; report precise diagnostics.
+- `build`: reproducible Vite + React Router SSR/client bundles; source maps kept private when necessary; generated digest/size reports.
+- `preview`: local or remote expiring isolated preview, no-index, sample/authorized merchant data only.
+- `publish`: never accept a local build as pre-approved. Request signed source-upload target, send archive and version metadata, trigger **server-side** independent validation/build/review. Response provides upload/build/review ID, **not** immediate public listing.
+- `versions` / `unlist`: show releases, metadata and review statuses; unlist prevents new sales, not breaking every installed store.
+- `delete`: distinguish draft deletion, unlisted theme and hard legal/safety removal; fail safely if active installations/licenses depend on a release.
 
 ## Marketplace and versioning flow
 
@@ -108,4 +108,4 @@ Allow arbitrary CSS/layout/responsive styles and React components that comply wi
 
 ## Compatibility
 
-Version \`theme manifest\`, \`public SDK\`, \`route contract\`, \`SSR adapter\`, and \`Worker deployment\` independently. Warn if a theme uses deprecated hooks or browser-only APIs during SSR. Require locked dependencies and CI regression with at least one full end-to-end theme example.
+Version `theme manifest`, `public SDK`, `route contract`, `SSR adapter`, and `Worker deployment` independently. Warn if a theme uses deprecated hooks or browser-only APIs during SSR. Require locked dependencies and CI regression with at least one full end-to-end theme example.
