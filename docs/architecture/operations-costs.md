@@ -4,7 +4,7 @@
 
 ## Production environments
 
-- Independent \`dev\`, \`staging\` and \`production\` storage, database, Worker namespaces, secret stores and IdP client IDs.
+- Independent `dev`, `staging` and `production` storage, database, Worker namespaces, secret stores and IdP client IDs.
 - CI builds portal and management services from reviewed code; creator uploads build **only** in quarantined ephemeral workers.
 - Promotion requires immutable source/build hash and signed release; production worker scripts deployed from approved artifacts, not raw user upload.
 - Feature flags for region, merchant plan and rollout; staging custom domains and previews must not index or leak production customer data.
