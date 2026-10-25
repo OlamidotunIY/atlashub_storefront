@@ -4,7 +4,7 @@
 
 ## Product experience and frontends
 
-The existing **Atlas Web** remains merchant business operations: POS, finance, orders, HR, accounting, inventory, general settings and storefront **recommendation cards**. Clicking a recommendation or Storefront link opens the **dedicated Storefront Portal** (new \`apps/portal\` in this repository) at a deep link to that marketplace listing, with central Atlas Hub SSO.
+The existing **Atlas Web** remains merchant business operations: POS, finance, orders, HR, accounting, inventory, general settings and storefront **recommendation cards**. Clicking a recommendation or Storefront link opens the **dedicated Storefront Portal** (new `apps/portal` in this repository) at a deep link to that marketplace listing, with central Atlas Hub SSO.
 
 The Storefront Portal has:
 - **Merchant workspace:** search marketplace, compare prices/previews, buy/claim licensed theme, install, choose active version, configure theme settings/branding/media, preview draft, connect domain, request TLS, publish/rollback/update, manage stores/assets/licenses/billing.
@@ -18,7 +18,7 @@ No drag-and-drop theme construction in MVP. Merchant customization is through fo
 - **AtlasHub Java backend**: authoritative organization identity, membership/RBAC, product catalog, published price, inventory, fulfillment, orders, merchant-connected payments, checkout, subscription/theme entitlements and platform accounting.
 - **Storefront TypeScript management API** (Node.js): DDD/Clean/ports-adapters business functions for creators, theme registry/version/review, source uploads, assets, installations, storefront settings, domain binding, publisher jobs and access enforcement. It uses **its own PostgreSQL** metadata store; it is a backend but does **not** need a new GitHub repo.
 - **Portal**: React+Vite TypeScript app serving merchant and creator workspaces with SSO and BFF/session strategy.
-- **Theme SDK and CLI**: Vite scaffolding, React Router route contracts, typed safe storefront queries/hooks and local tests/mocks, signed-in \`theme\` CLI.
+- **Theme SDK and CLI**: Vite scaffolding, React Router route contracts, typed safe storefront queries/hooks and local tests/mocks, signed-in `theme` CLI.
 - **Build worker**: receive source archive via private signed upload; isolate dependencies/npm lifecycle scripts, scan/validate/audit, enforce route/config/asset limits, produce immutable assets plus edge-compatible SSR module.
 - **Theme hosting**: Cloudflare Workers for Platforms in **untrusted** dispatch namespace; initial **separate user Worker per merchant storefront installation**, all behind a shared dispatch Worker with trusted hostname verification, environment/quota enforcement and optional outbound Worker for constrained egress. Production bundle references the approved immutable theme release; do not run the developer's uploaded dev server. This is the selected candidate only after benchmark/security feasibility gates.
 - **R2/CDN**: source quarantine (private), approved releases (immutable, controlled public asset delivery), merchant storefront branding/uploads (tenant-scoped). **Not** Java business OLTP database.
