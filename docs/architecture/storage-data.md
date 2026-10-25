@@ -16,7 +16,7 @@ Public product images and files belong to Java Commerce/Catalog's asset ownershi
 ## Developer upload/build/release object lifecycle
 
 1. Creator is authorized for Theme ID/version; platform reserves source submission ID + size/hash and creates **short-lived single-prefix signed upload URL** for a private quarantine bucket.
-2. CLI sends **source archive** excluding \`node_modules\`, secrets, \`.env\`, local keys and generated outputs (policy rejects accidental secrets), plus lockfile/manifest. File format size and decompression bounds enforced.
+2. CLI sends **source archive** excluding `node_modules`, secrets, `.env`, local keys and generated outputs (policy rejects accidental secrets), plus lockfile/manifest. File format size and decompression bounds enforced.
 3. Builder validates file/metadata ownership, archive traversal and bombs; isolated reproducible build (no privileged network/credentials); test SSR Worker compatibility; outputs separate **client static assets** and **server SSR module**.
 4. Approved build stored in immutable release object prefix keyed by Theme ID/version/content digest. Object/version metadata includes checksum, source provenance, SDK/SSR compatibility and reviewed capabilities. Never publish arbitrary prebuilt upload without rebuild/verification.
 5. Release static assets are served under stable content-addressed URLs through CDN. SSR code is deployed to untrusted Workers for Platforms Worker for each installation, not executed directly out of R2 by portal.
@@ -25,42 +25,42 @@ Public product images and files belong to Java Commerce/Catalog's asset ownershi
 
 Illustrative bucket/prefix layout:
 
-\`\`\`text
+```text
 r2://theme-source-private/creators/{creatorId}/themes/{themeId}/submissions/{submissionId}/source.tar.gz
 r2://theme-build-private/jobs/{jobId}/logs.json
 r2://theme-releases-private/themes/{themeId}/{version}/{digest}/server/entry.mjs
 r2://theme-releases-private/themes/{themeId}/{version}/{digest}/client/assets/index-{hash}.js
 r2://merchant-assets/organizations/{orgId}/storefronts/{storefrontId}/branding/{assetId}/{digest}.webp
 r2://merchant-assets/organizations/{orgId}/storefronts/{storefrontId}/banners/{assetId}/{digest}.webp
-\`\`\`
+```
 
 Object *prefixes* are organizational conventions, not authorization controls. Every upload, get, delete and mutation must validate tenant ownership against server-side asset metadata. Public CDN access should expose only transformed/approved objects; never expose signed internal source paths. Use custom CDN domain, cache keys and origin access rules.
 
 ## Relational metadata (PostgreSQL proposed)
 
 Entity candidates:
-- \`CreatorProfile(id,userId,status)\`
-- \`Theme(id,creatorId,slug,status)\`
-- \`ThemeVersion(id,themeId,semver,submissionId,schemaVersion,sourceKey,sourceDigest,reviewId)\`
-- \`BuildJob(id,versionId,status,logsKey,attemptCount,createdAt)\`
-- \`ThemeRelease(id,versionId,assetManifestKey,artifactDigest,clientPrefix,workerArtifactRef,approvedAt)\`
-- \`ThemeListing(id,themeId,activeVersionId,price,billingProductRef,listed)\`
-- \`ThemeLicense(id,organizationId,themeId,billingEntitlementRef,status)\`
-- \`ThemeInstallation(id,storefrontId,releaseId,licenseId,status)\`
-- \`Storefront(id,organizationId,market,locale,status,activePublicationId)\`
-- \`StorefrontConfigRevision(id,storefrontId,releaseId,schemaVersion,settingsJSON,status)\`
-- \`DomainBinding(id,storefrontId,canonicalHost,ownershipProofStatus,sslStatus,active)\`
-- \`Asset(id,ownerOrganizationId,storefrontId,key,digest,mime,size,visibility,status,deletedAt)\`
-- \`WorkerDeployment(id,storefrontId,releaseId,workerName,environment,status,artifactDigest)\`
-- \`Publication(id,storefrontId,releaseId,configRevisionId,deploymentId,previousPublicationId,status)\`
-- \`AuditEvent(id,actorId,orgId,objectId,action,requestId,timestamp)\`
+- `CreatorProfile(id,userId,status)`
+- `Theme(id,creatorId,slug,status)`
+- `ThemeVersion(id,themeId,semver,submissionId,schemaVersion,sourceKey,sourceDigest,reviewId)`
+- `BuildJob(id,versionId,status,logsKey,attemptCount,createdAt)`
+- `ThemeRelease(id,versionId,assetManifestKey,artifactDigest,clientPrefix,workerArtifactRef,approvedAt)`
+- `ThemeListing(id,themeId,activeVersionId,price,billingProductRef,listed)`
+- `ThemeLicense(id,organizationId,themeId,billingEntitlementRef,status)`
+- `ThemeInstallation(id,storefrontId,releaseId,licenseId,status)`
+- `Storefront(id,organizationId,market,locale,status,activePublicationId)`
+- `StorefrontConfigRevision(id,storefrontId,releaseId,schemaVersion,settingsJSON,status)`
+- `DomainBinding(id,storefrontId,canonicalHost,ownershipProofStatus,sslStatus,active)`
+- `Asset(id,ownerOrganizationId,storefrontId,key,digest,mime,size,visibility,status,deletedAt)`
+- `WorkerDeployment(id,storefrontId,releaseId,workerName,environment,status,artifactDigest)`
+- `Publication(id,storefrontId,releaseId,configRevisionId,deploymentId,previousPublicationId,status)`
+- `AuditEvent(id,actorId,orgId,objectId,action,requestId,timestamp)`
 
 Identifiers and unique keys are illustrative; migrations, indexes, schema and isolation model must be designed and reviewed. PostgreSQL is **storefront platform metadata only**, not a second copy of Java authoritative business state. Feature read models may cache non-sensitive public catalog projections with version/expiry/invalidation.
 
 ## Tenant asset upload workflow
 
 1. Authorized merchant opens Storefront Portal's settings/asset library for an explicitly selected organization/storefront.
-2. Management backend verifies Java membership/publisher authorization and storage quota; creates \`UploadSession\` with max bytes, MIME and allowed object prefix, and issues short-lived signed upload authorization.
+2. Management backend verifies Java membership/publisher authorization and storage quota; creates `UploadSession` with max bytes, MIME and allowed object prefix, and issues short-lived signed upload authorization.
 3. Browser uploads into a quarantine/staging prefix directly to object storage. Server validates actual content type, file signatures, SVG safety, malware, resolution and quotas; converts images into optimized variants in a sandbox.
 4. Create Asset metadata and approved public variants; merchant settings reference Asset **ID**, not arbitrary raw object key/URL.
 5. Merchant picks logo/favicons/banner etc; a new DRAFT config revision is saved. Preview references the draft; publish selects a known validated config revision atomically.
