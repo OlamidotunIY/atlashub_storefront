@@ -89,3 +89,8 @@
 - Operations: Worker script counts/CPU/subrequests, R2 storage/read/write cost, CDN hit ratio, egress blocks, domain certificate expiry, asset orphan cleanup, audit retention.
 
 **Nothing in this document is an implementation-complete claim.**
+
+
+## Enforce architectural invariants
+
+Source code must follow [DDD/Clean/Hexagonal design](../architecture/clean-hexagonal.md), [backend and worker directory layout](../architecture/folder-structure.md), [engineering and security policy](../guidelines/engineering-rules.md), and [test/release gates](../guidelines/testing-release.md). Separate `atlashub_auth_web`, `atlashub_storefront_portal` and `atlashub_theme_sdk` repositories have their **own** source and CI. Do not reintroduce a frontend/SDK monorepo.
