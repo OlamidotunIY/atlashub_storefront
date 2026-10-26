@@ -84,3 +84,8 @@ As an **independent backend+hosting repository**, Atlas Storefront uses bounded 
 - [Module delivery roadmap](docs/modules/index.md)
 
 Use standard independently managed repositories and CI, **no Turborepo/Nx**. Documented architecture does not imply Worker isolation, billing, SSO or provider setup is implemented.
+
+
+## Canonical shared Protobuf schemas (2026-10-26)
+
+Use [atlashub_contracts](https://github.com/OlamidotunIY/atlashub_contracts) as **the canonical source of cross-repo wire schemas**, with separate public browser and authenticated/internal interfaces. This backend may use native gRPC to Java and expose browser-compatible **Connect/gRPC-Web** through its trusted gateway, subject to Java server/gateway implementation. No arbitrary org identifier or provider auth from the theme is trusted. A public Theme SDK package must **exclude** internal AI tools, settlements and IAM services. Developer theme manifest/settings schema belongs to the SDK and this backend's domain, but any truly shared wire format should be defined once and versioned. [Transport/security rules](https://github.com/OlamidotunIY/atlashub_contracts/blob/main/docs/architecture/transports-security.md); [package release rules](https://github.com/OlamidotunIY/atlashub_contracts/blob/main/docs/architecture/generated-packages.md).
