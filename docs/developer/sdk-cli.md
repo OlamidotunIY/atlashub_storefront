@@ -1,6 +1,6 @@
 # Creator developer experience — SDK/CLI cross-repo contract
 
-**State:** Specification for a **separate planned** `atlashub_theme_sdk` repository; that repository was not found in connected GitHub installations. CLI and SDK are not published npm packages yet. This backend keeps compatibility/API contracts only; no monorepo or Turborepo/Nx.
+**State:** Specification for the **existing separate** [`atlashub_theme_sdk`](https://github.com/OlamidotunIY/atlashub_theme_sdk) repository. That repo contains architectural docs but no implemented SDK/CLI. CLI and SDK are not published npm packages yet. This backend keeps compatibility/API contracts only; no monorepo or Turborepo/Nx.
 
 ## Design intention
 
