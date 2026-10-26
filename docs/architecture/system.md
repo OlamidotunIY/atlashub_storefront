@@ -40,7 +40,7 @@ Cross-repository links:
 
 Proposed bounded contexts: CreatorIdentityAdapter (not its own identity provider), ThemeCatalog, ThemeAuthoring, ThemeBuildValidation, ThemeReview, ThemeMarketplace, ThemeLicense, ThemeInstallation, StorefrontConfiguration, StorefrontPublication, DomainProvisioning, AssetManagement, CommerceIntegration, DeploymentControl and Audit.
 
-Domain: aggregates, immutable release/value objects, transitions/eligibility. Application: typed use cases, commands, queries, policies. Infrastructure: PostgreSQL, R2, Cloudflare adapters, jobs, SSO and Java API clients. Presentation: portal, management REST endpoints, CLI auth/upload/preview endpoints, customer SSR gateway.
+Domain: aggregates, immutable release/value objects, transitions/eligibility. Application: typed use cases, commands, queries, policies. Infrastructure: PostgreSQL, R2, Cloudflare adapters, jobs, SSO and Java API clients. Presentation: **management REST/BFF-facing APIs**, creator CLI upload/preview endpoints consumed by the **separate SDK repository**, job controllers and customer SSR gateway. The React Portal presentation layer lives only in `atlashub_storefront_portal`.
 
 CQRS for stateful author/release/publication and catalog/search views. Not every raw HTTP request, audio, render chunk or product fetch needs a command bus. Services are logical boundaries within one repository, not mandatory premature microservices.
 
