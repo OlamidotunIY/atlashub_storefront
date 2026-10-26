@@ -1,5 +1,8 @@
 # Cross-repository APIs, event contracts and ownership
 
+**Canonical wire contracts notice (2026-10-26):** The new [atlashub_contracts](https://github.com/OlamidotunIY/atlashub_contracts) is source of truth for versioned shared Protobuf definitions. Initial public [catalog RPC](https://github.com/OlamidotunIY/atlashub_contracts/blob/main/proto/atlashub/commerce/v1alpha1/public_catalog.proto) is **v1alpha1 draft**. Paths below are illustrative REST/conceptual API operations, not confirmed deployed endpoints. Actual transport for browser Theme SDK is a reviewed Connect/gRPC-Web compatible trusted gateway; native Java gRPC alone is insufficient. This Node backend remains the only owner of theme management and release policies, with SDK/Portal as separate repositories.
+
+
 **Status:** Proposed API contracts, not implemented endpoints. Naming and schemas must be aligned with actual Java OpenAPI before code generation.
 
 ## Repository ownership
