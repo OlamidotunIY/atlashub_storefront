@@ -71,3 +71,16 @@ No code structure above implies implementation is complete. Portal frontend live
 ## Reference services (architecture, not deployment claims)
 
 [Workers for Platforms](https://developers.cloudflare.com/cloudflare-for-platforms/workers-for-platforms/), [worker isolation](https://developers.cloudflare.com/cloudflare-for-platforms/workers-for-platforms/reference/worker-isolation/), [Cloudflare for SaaS](https://developers.cloudflare.com/cloudflare-for-platforms/cloudflare-for-saas/start/getting-started/), [R2](https://developers.cloudflare.com/r2/), [React Router](https://reactrouter.com/start/framework/installation).
+
+
+## Mandatory backend Clean Architecture / DDD / Hexagonal guidelines
+
+As an **independent backend+hosting repository**, Atlas Storefront uses bounded contexts with pure TypeScript domain aggregates, application commands/queries, ports, and PostgreSQL/R2/Java/Cloudflare infrastructure adapters. No React Portal, Auth Web UI or theme scaffolder is implemented inside this repository. Application and domain layers must not import ORM, HTTP framework or Cloudflare SDK. Use CQRS pragmatically for auditable publishing and installation workflows.
+
+- [DDD/Clean/Hexagonal bounded contexts and invariants](docs/architecture/clean-hexagonal.md)
+- [Backend/worker/Cloudflare source folder structure](docs/architecture/folder-structure.md)
+- [Engineering, security, reliability and review rules](docs/guidelines/engineering-rules.md)
+- [Domain, API, integration, security and release tests](docs/guidelines/testing-release.md)
+- [Module delivery roadmap](docs/modules/index.md)
+
+Use standard independently managed repositories and CI, **no Turborepo/Nx**. Documented architecture does not imply Worker isolation, billing, SSO or provider setup is implemented.
