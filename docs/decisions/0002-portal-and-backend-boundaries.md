@@ -15,7 +15,7 @@ Atlas Web is the existing business operations dashboard. Independent merchant th
 | [atlashub_storefront_portal](https://github.com/OlamidotunIY/atlashub_storefront_portal) | Independent React/Vite Merchant+Creator Portal frontend, settings, marketplace, domains and listings | Created; documentation added |
 | **atlashub_storefront (here)** | Node/TypeScript Storefront management backend, themes/versions/licensing references, build/review/publishing, R2, Cloudflare Workers/dispatch/domains, public storefront runtime | Existing; no Portal frontend here |
 | [atlashub_intelligence](https://github.com/OlamidotunIY/atlashub_intelligence) | Python AI/voice agent; Java business tool authority | Existing |
-| **atlashub_theme_sdk** (proposed) | Public browser theme SDK, Vite/React Router scaffold, creator CLI, theme contracts, versioned npm packages | **Not found/confirmed created** in currently connected repositories |
+| [atlashub_theme_sdk](https://github.com/OlamidotunIY/atlashub_theme_sdk) | Public browser theme SDK, Vite/React Router scaffold, creator CLI, theme contracts, versioned npm packages | **Repository created; architecture docs initialized; no published SDK/CLI yet** |
 
 ## Identity and onboarding
 - User registration/login **not** equal to Organization creation. Register a global individual User with zero organizations allowed. Business creation/invitations are optional later workflows.
