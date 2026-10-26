@@ -85,4 +85,4 @@ Atlas Web currently has `src/app/router/routes/merchant.routes.tsx` merchant aut
 Java IAM/auth is authoritative; extend to central SSO and creator role/profiles through API contracts. Do not add a standalone identity database to the storefront backend.
 
 ## Decisions
-Separate portal **yes, separate frontend repository**. Separate Auth Web frontend **yes**. Additional new backend repo **no**. Independent SDK/CLI repo **planned, not yet created**. Shared identity with app-specific session **yes**. Independent creator onboarding **yes**. Drag-and-drop editor **not in initial release**.
+Separate portal **yes, separate frontend repository**. Separate Auth Web frontend **yes**. Additional new backend repo **no**. Independent [Theme SDK/CLI repo](https://github.com/OlamidotunIY/atlashub_theme_sdk) **created, documentation only; packages not implemented**. Shared identity with app-specific session **yes**. Independent creator onboarding **yes**. Drag-and-drop editor **not in initial release**.
